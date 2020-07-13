@@ -191,7 +191,7 @@ const SignIn = props => {
       .signInWithEmailAndPassword(email, password)
       .then(success => {
         setIsLoading(false);
-        history.push('/');
+        history.push('/dashboard');
       })
       .catch(error => {
         setIsLoading(false);

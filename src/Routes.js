@@ -25,7 +25,7 @@ import {
 const Routes = () => {
   return (
     <Switch>
-      <Redirect exact from="/" to="/dashboard" />
+      <Redirect exact from="/" to="/sign-in" />
       <RouteWithLayout
         component={DashboardView}
         exact
