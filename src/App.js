@@ -13,7 +13,6 @@ import validators from './common/validators';
 import Routes from './Routes';
 
 import AppProvider from './providers/AppProvider';
-import { AppContext } from './providers/AppProvider';
 
 const browserHistory = createBrowserHistory();
 

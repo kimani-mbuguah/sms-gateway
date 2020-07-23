@@ -55,6 +55,7 @@
     "react-select-search": "^2.0.4",
     "react-tag-autocomplete": "^6.0.0-beta.6",
     "react-tag-box": "^1.6.0",
+    "reactjs-tag-input": "^2.0.15",
     "recompose": "^0.30.0",
     "underscore": "^1.9.1",
     "uuid": "^3.3.2",

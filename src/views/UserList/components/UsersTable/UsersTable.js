@@ -113,6 +113,9 @@ const UsersTable = props => {
                   </TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Phone</TableCell>
+                  <TableCell>Ministry</TableCell>
+                  <TableCell>Life Group</TableCell>
+                  <TableCell>Residence</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -139,6 +142,9 @@ const UsersTable = props => {
                       </div>
                     </TableCell>
                     <TableCell>{user.phone}</TableCell>
+                    <TableCell>{user.ministry}</TableCell>
+                    <TableCell>{user.lifeGroup}</TableCell>
+                    <TableCell>{user.residence}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

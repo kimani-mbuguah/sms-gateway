@@ -38,7 +38,6 @@ const UserList = () => {
     <div className={classes.root}>
       <UsersToolbar app={app} />
       <div className={classes.content}>
-        {/* <UsersTable users={users} /> */}
         {users ? <UsersTable users={users} /> : <div>No users yet</div>}
       </div>
     </div>

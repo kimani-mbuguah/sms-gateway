@@ -34,16 +34,20 @@ const UsersToolbar = props => {
 
   const classes = useStyles();
 
+  const gotToCreateUser = () => {
+    window.location.href = '/users/register';
+  };
+
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.row}>
         <span className={classes.spacer} />
 
-        <UserForm app={props.app} />
+        {/* <UserForm app={props.app} /> */}
 
-        {/* <Button color="primary" variant="contained">
-            Add user
-          </Button> */}
+        <Button color="primary" variant="contained" onClick={gotToCreateUser}>
+          Add Member
+        </Button>
       </div>
       <div className={classes.row}>
         <SearchInput
@@ -56,7 +60,8 @@ const UsersToolbar = props => {
 };
 
 UsersToolbar.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  history: PropTypes.object
 };
 
 export default UsersToolbar;

@@ -180,14 +180,13 @@ export default function UserForm(props) {
   const handleAddUser = async (event, name, phone) => {
     event.preventDefault();
 
-    console.log(name, phone);
     formState.values.name && formState.values.phone
       ? await generateUserDocument(app.uid, name, phone).then(success => {
           console.log(success);
           handleClose();
           window.location.href = '/users';
         })
-      : console.log('cannot submit empty form');
+      : alert('cannot submit empty form');
   };
 
   return (

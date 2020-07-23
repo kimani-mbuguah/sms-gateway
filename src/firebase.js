@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 import africaistalking from 'africaistalking';
 
 const firebaseConfig = {
@@ -24,6 +25,10 @@ const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
   auth.signInWithPopup(provider);
 };
+
+const storage = firebase.storage();
+
+export { storage, firebase as default };
 
 export const countUsers = async uid => {
   if (!uid) return;
@@ -95,27 +100,51 @@ const getAppDocument = async uid => {
   }
 };
 
-export const generateUserDocument = async (uid, name, phone) => {
-  if (!uid) return;
+String.prototype.replaceAt = function(index, replacement) {
+  return (
+    this.substr(0, index) +
+    replacement +
+    this.substr(index + replacement.length)
+  );
+};
 
+export const generateUserDocument = async (values, imageUrl, uid) => {
+  // (!values || uid) return;
+  const formatedPhone = values.phone.replaceAt(0, '+254');
   const usersRef = firestore
     .doc(`apps/${uid}`)
     .collection(`users`)
-    .doc(phone);
+    .doc(values.phone);
   const snapshot = await usersRef.get();
 
   if (!snapshot.exists) {
-    try {
-      await usersRef.set({
-        name: name,
-        phone: phone
+    await usersRef
+      .set({
+        name: `${values.firstName} ${values.lastName}`,
+        email: values.email,
+        phone: formatedPhone,
+        gender: values.gender,
+        ageBracket: values.age,
+        career: values.career,
+        bornAgain: values.bornAgain,
+        baptised: values.baptised,
+        ministry: values.ministry,
+        lifeGroup: values.lifeGroup,
+        residence: values.residence,
+        plugin: values.plugin,
+        children: values.children,
+        photo: imageUrl
+      })
+      .then(success => {
+        return getUserDocument(uid, values.phone);
+      })
+      .catch(error => {
+        return error;
       });
-    } catch (error) {
-      console.error('Error creating user document', error);
-      return error;
-    }
+  } else {
+    console.log('phone already taken');
+    return 'Phone number already taken. Please use a different phone number';
   }
-  return getUserDocument(uid, phone);
 };
 
 export const getUserDocuments = async uid => {
@@ -141,7 +170,6 @@ export const getUserDocuments = async uid => {
 };
 
 export const getUserDocument = async (uid, phone) => {
-  if (!uid) return null;
   try {
     const userDocument = await firestore
       .doc(`apps/${uid}`)
@@ -155,6 +183,7 @@ export const getUserDocument = async (uid, phone) => {
     };
   } catch (error) {
     console.error('Error fetching user', error);
+    return error;
   }
 };
 

@@ -19,6 +19,7 @@ import {
   MemberList,
   MultiUserSms,
   GroupSMS,
+  Account,
   NotFound as NotFoundView
 } from './views';
 
@@ -79,6 +80,12 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/settings"
+      />
+      <RouteWithLayout
+        component={Account}
+        exact
+        layout={MainLayout}
+        path="/users/register"
       />
       <RouteWithLayout
         component={SignUpView}
