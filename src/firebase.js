@@ -136,12 +136,7 @@ export const generateUserDocument = async (values, imageUrl, uid) => {
         photo: imageUrl
       })
       .then(success => {
-        if (values.children === 'yes') {
-          console.log('children');
-        } else {
-          console.log('no children');
-          return getUserDocument(uid, values.phone);
-        }
+        return success;
       })
       .catch(error => {
         return error;
