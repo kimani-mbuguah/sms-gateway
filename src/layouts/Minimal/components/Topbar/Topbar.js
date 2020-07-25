@@ -25,7 +25,7 @@ const Topbar = props => {
       <Toolbar>
         <RouterLink to="/">
           <h2 style={{ textTransform: 'uppercase', color: '#fff' }}>
-            SMS Gateway
+            HoD Management System
           </h2>
         </RouterLink>
       </Toolbar>

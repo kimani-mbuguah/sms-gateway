@@ -13,3 +13,6 @@ export { default as GroupList } from './GroupList';
 export { default as MemberList } from './MemberList';
 export { default as MultiUserSms } from './MultiUserSms';
 export { default as GroupSMS } from './GroupSMS';
+export {
+  default as AccountChildren
+} from './Account/components/AccountChildren';

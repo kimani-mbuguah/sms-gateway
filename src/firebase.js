@@ -110,11 +110,11 @@ String.prototype.replaceAt = function(index, replacement) {
 
 export const generateUserDocument = async (values, imageUrl, uid) => {
   // (!values || uid) return;
-  const formatedPhone = values.phone.replaceAt(0, '+254');
+  const formattedPhone = values.phone.replace(/^.{1}/g, '+254');
   const usersRef = firestore
     .doc(`apps/${uid}`)
     .collection(`users`)
-    .doc(values.phone);
+    .doc(formattedPhone);
   const snapshot = await usersRef.get();
 
   if (!snapshot.exists) {
@@ -122,7 +122,7 @@ export const generateUserDocument = async (values, imageUrl, uid) => {
       .set({
         name: `${values.firstName} ${values.lastName}`,
         email: values.email,
-        phone: formatedPhone,
+        phone: formattedPhone,
         gender: values.gender,
         ageBracket: values.age,
         career: values.career,
@@ -136,7 +136,12 @@ export const generateUserDocument = async (values, imageUrl, uid) => {
         photo: imageUrl
       })
       .then(success => {
-        return getUserDocument(uid, values.phone);
+        if (values.children === 'yes') {
+          console.log('children');
+        } else {
+          console.log('no children');
+          return getUserDocument(uid, values.phone);
+        }
       })
       .catch(error => {
         return error;
@@ -144,6 +149,435 @@ export const generateUserDocument = async (values, imageUrl, uid) => {
   } else {
     console.log('phone already taken');
     return 'Phone number already taken. Please use a different phone number';
+  }
+};
+
+const makeId = length => {
+  var result = '';
+  var characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
+export const generateChildrenDocument = async (values, phone, uid) => {
+  if (
+    values.firstName1 &&
+    !values.firstName2 &&
+    !values.firstName3 &&
+    !values.firstName4 &&
+    !values.firstName5 &&
+    !values.firstName6
+  ) {
+    const childrenRef = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    await childrenRef
+      .set({
+        name: `${values.firstName1} ${values.lastName1}`,
+        gender: values.gender1,
+        age: values.age1
+      })
+      .then(success => {
+        return success;
+      })
+      .catch(error => {
+        return error;
+      });
+  } else if (
+    values.firstName1 &&
+    values.firstName2 &&
+    !values.firstName3 &&
+    !values.firstName4 &&
+    !values.firstName5 &&
+    !values.firstName6
+  ) {
+    const childrenRef1 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef2 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const name1 = `${values.firstName1} ${values.lastName1}`;
+    const gender1 = `${values.gender1}`;
+    const age1 = `${values.age1}`;
+
+    const name2 = `${values.firstName2} ${values.lastName2}`;
+    const gender2 = `${values.gender2}`;
+    const age2 = `${values.age2}`;
+
+    await childrenRef1.set({
+      name: name1,
+      gender: gender1,
+      age: age1
+    });
+
+    await childrenRef2.set({
+      name: name2,
+      gender: gender2,
+      age: age2
+    });
+
+    return 'done';
+  } else if (
+    values.firstName1 &&
+    values.firstName2 &&
+    values.firstName3 &&
+    !values.firstName4 &&
+    !values.firstName5 &&
+    !values.firstName6
+  ) {
+    const childrenRef1 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef2 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef3 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const name1 = `${values.firstName1} ${values.lastName1}`;
+    const gender1 = `${values.gender1}`;
+    const age1 = `${values.age1}`;
+
+    const name2 = `${values.firstName2} ${values.lastName2}`;
+    const gender2 = `${values.gender2}`;
+    const age2 = `${values.age2}`;
+
+    const name3 = `${values.firstName3} ${values.lastName3}`;
+    const gender3 = `${values.gender3}`;
+    const age3 = `${values.age3}`;
+
+    await childrenRef1.set({
+      name: name1,
+      gender: gender1,
+      age: age1
+    });
+
+    await childrenRef2.set({
+      name: name2,
+      gender: gender2,
+      age: age2
+    });
+
+    await childrenRef3.set({
+      name: name3,
+      gender: gender3,
+      age: age3
+    });
+
+    return 'done';
+  } else if (
+    values.firstName1 &&
+    values.firstName2 &&
+    values.firstName3 &&
+    values.firstName4 &&
+    !values.firstName5 &&
+    !values.firstName6
+  ) {
+    const childrenRef1 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef2 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef3 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef4 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const name1 = `${values.firstName1} ${values.lastName1}`;
+    const gender1 = `${values.gender1}`;
+    const age1 = `${values.age1}`;
+
+    const name2 = `${values.firstName2} ${values.lastName2}`;
+    const gender2 = `${values.gender2}`;
+    const age2 = `${values.age2}`;
+
+    const name3 = `${values.firstName3} ${values.lastName3}`;
+    const gender3 = `${values.gender3}`;
+    const age3 = `${values.age3}`;
+
+    const name4 = `${values.firstName4} ${values.lastName4}`;
+    const gender4 = `${values.gender4}`;
+    const age4 = `${values.age4}`;
+
+    await childrenRef1.set({
+      name: name1,
+      gender: gender1,
+      age: age1
+    });
+
+    await childrenRef2.set({
+      name: name2,
+      gender: gender2,
+      age: age2
+    });
+
+    await childrenRef3.set({
+      name: name3,
+      gender: gender3,
+      age: age3
+    });
+
+    await childrenRef4.set({
+      name: name4,
+      gender: gender4,
+      age: age4
+    });
+
+    return 'done';
+  } else if (
+    values.firstName1 &&
+    values.firstName2 &&
+    values.firstName3 &&
+    values.firstName4 &&
+    values.firstName5 &&
+    !values.firstName6
+  ) {
+    const childrenRef1 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef2 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef3 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef4 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef5 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const name1 = `${values.firstName1} ${values.lastName1}`;
+    const gender1 = `${values.gender1}`;
+    const age1 = `${values.age1}`;
+
+    const name2 = `${values.firstName2} ${values.lastName2}`;
+    const gender2 = `${values.gender2}`;
+    const age2 = `${values.age2}`;
+
+    const name3 = `${values.firstName3} ${values.lastName3}`;
+    const gender3 = `${values.gender3}`;
+    const age3 = `${values.age3}`;
+
+    const name4 = `${values.firstName4} ${values.lastName4}`;
+    const gender4 = `${values.gender4}`;
+    const age4 = `${values.age4}`;
+
+    const name5 = `${values.firstName5} ${values.lastName5}`;
+    const gender5 = `${values.gender5}`;
+    const age5 = `${values.age5}`;
+
+    await childrenRef1.set({
+      name: name1,
+      gender: gender1,
+      age: age1
+    });
+
+    await childrenRef2.set({
+      name: name2,
+      gender: gender2,
+      age: age2
+    });
+
+    await childrenRef3.set({
+      name: name3,
+      gender: gender3,
+      age: age3
+    });
+
+    await childrenRef4.set({
+      name: name4,
+      gender: gender4,
+      age: age4
+    });
+
+    await childrenRef5.set({
+      name: name5,
+      gender: gender5,
+      age: age5
+    });
+
+    return 'done';
+  } else if (
+    values.firstName1 &&
+    values.firstName2 &&
+    values.firstName3 &&
+    values.firstName4 &&
+    values.firstName5 &&
+    values.firstName6
+  ) {
+    const name1 = `${values.firstName1} ${values.lastName1}`;
+    const gender1 = `${values.gender1}`;
+    const age1 = `${values.age1}`;
+
+    const name2 = `${values.firstName2} ${values.lastName2}`;
+    const gender2 = `${values.gender2}`;
+    const age2 = `${values.age2}`;
+
+    const name3 = `${values.firstName3} ${values.lastName3}`;
+    const gender3 = `${values.gender3}`;
+    const age3 = `${values.age3}`;
+
+    const name4 = `${values.firstName4} ${values.lastName4}`;
+    const gender4 = `${values.gender4}`;
+    const age4 = `${values.age4}`;
+
+    const name5 = `${values.firstName5} ${values.lastName5}`;
+    const gender5 = `${values.gender5}`;
+    const age5 = `${values.age5}`;
+
+    const name6 = `${values.firstName6} ${values.lastName6}`;
+    const gender6 = `${values.gender6}`;
+    const age6 = `${values.age6}`;
+
+    const childrenRef1 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef2 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef3 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef4 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef5 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    const childrenRef6 = firestore
+      .doc(`apps/${uid}`)
+      .collection(`users`)
+      .doc(phone)
+      .collection('children ')
+      .doc(makeId(10));
+
+    await childrenRef1.set({
+      name: name1,
+      gender: gender1,
+      age: age1
+    });
+
+    await childrenRef2.set({
+      name: name2,
+      gender: gender2,
+      age: age2
+    });
+
+    await childrenRef3.set({
+      name: name3,
+      gender: gender3,
+      age: age3
+    });
+
+    await childrenRef4.set({
+      name: name4,
+      gender: gender4,
+      age: age4
+    });
+
+    await childrenRef5.set({
+      name: name5,
+      gender: gender5,
+      age: age5
+    });
+
+    await childrenRef6.set({
+      name: name6,
+      gender: gender6,
+      age: age6
+    });
+
+    return 'done';
+  } else {
+    return 'Invalid data supplied';
   }
 };
 

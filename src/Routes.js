@@ -20,6 +20,7 @@ import {
   MultiUserSms,
   GroupSMS,
   Account,
+  AccountChildren,
   NotFound as NotFoundView
 } from './views';
 
@@ -86,6 +87,13 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/users/register"
+      />
+
+      <RouteWithLayout
+        component={AccountChildren}
+        exact
+        layout={MainLayout}
+        path="/users/register/add-children"
       />
       <RouteWithLayout
         component={SignUpView}

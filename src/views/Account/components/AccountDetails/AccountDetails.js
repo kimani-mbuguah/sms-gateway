@@ -352,7 +352,11 @@ const AccountDetails = props => {
               generateUserDocument(values, fireBaseUrl, app.uid)
                 .then(() => {
                   setIsLoading(false);
-                  window.location.href = '/users';
+                  //window.location.href = '/users';
+                  window.location.href = `/users/register/add-children?phone=${values.phone.replace(
+                    /^.{1}/g,
+                    '+254'
+                  )}`;
                 })
                 .catch(error => {
                   alert(error);
